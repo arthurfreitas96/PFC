@@ -164,7 +164,7 @@ float dsreadtemp(OneWire myds, byte addr[8]){
       raw = (raw & 0xFFF0) + 12 - data[6];
     } else {
       byte cfg = (data[4] & 0x60);
-      if (cfg == 0x00) raw = raw << 3;  // 9 bit resolution, 93.75 ms
+      if (cfg == 0x00) raw = raw << 3;  // 9 bit resolution, 93.75 ms SOURCE: https://harizanov.com/2013/07/optimizing-ds18b20-code-for-low-power-applications/
       else if (cfg == 0x20) raw = raw << 2; // 10 bit res, 187.5 ms
       else if (cfg == 0x40) raw = raw << 1; // 11 bit res, 375 ms
       // default is 12 bit resolution, 750 ms conversion time
@@ -273,6 +273,7 @@ void secondsToHMS(int seconds, int *h, int *m, int *s)
 void tempRead(){
   dsconvertcommand(myds); // Commands all temp sensors convertion. Respect delay for proper convertion.
   delay(200); // 94ms for 9bit res. / 188ms for 10bit res. / 375ms for 11bit res. / 750ms for 12bit res.
+              // SOURCE: https://harizanov.com/2013/07/optimizing-ds18b20-code-for-low-power-applications/
   t1 = dsreadtemp(myds, dsaddr1);
   t2 = dsreadtemp(myds, dsaddr2);
   t3 = dsreadtemp(myds, dsaddr3);
