@@ -1,4 +1,5 @@
 // Sketch that scans DS18B20 sensor addresses
+// Source: https://lastminuteengineers.com/multiple-ds18b20-arduino-tutorial/
 
 #include <OneWire.h>
 #include <DallasTemperature.h>
